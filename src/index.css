@@ -1,3 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Ajustes opcionais */
+:root{ --accent: #ff6600; }
