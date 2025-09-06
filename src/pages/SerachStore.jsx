@@ -1,6 +1,5 @@
 import Hero from "../components/hero/Hero";
 import Highlights from "../components/highlightsStores/Highlights";
-import CopyrightBottom from "../components/copyright/CopyrightBottom";
 
 const IMAGES = [
     // Imagens ilustrativas públicas (picsum)
@@ -28,7 +27,6 @@ export default function SerachStore() {
             </p>
             <Highlights />
         </section>
-        <CopyrightBottom />
     </main>
 );
 }

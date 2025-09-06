@@ -31,7 +31,7 @@ export default function Hero({
                 </h1>
                 <div className="mt-5">
                     <SearchBar
-                    placeholder="Busque a loja filiada..."
+                    placeholder="Busque a sua cidade..."
                     onSearch={onSearch || (() => {})}
                     />
                 </div>
