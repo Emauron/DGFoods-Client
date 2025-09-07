@@ -40,10 +40,10 @@ export default function SearchBar({ placeholder, onSearch }) {
     };
 
     const handleCitySelect = (city) => {
-            setSelectedCity(city); // salva id e dados
-            const label = `${city.name} - ${city.uf}`;
-            setValue(label);
-            onSearch && onSearch(label, city.id); // 1º arg: label; 2º arg: id
+        setSelectedCity(city); // salva id e dados
+        const label = `${city.name} - ${city.uf}`;
+        setValue(label);
+        onSearch && onSearch(label, city.id); // 1º arg: label; 2º arg: id
         setIsOpen(false);
     };
 
@@ -154,7 +154,7 @@ export default function SearchBar({ placeholder, onSearch }) {
             <button
                 type="submit"
                 className="px-5 py-3 rounded-full transition-all duration-300 bg-orange-600 text-white font-semibold hover:brightness-95 focus:outline-none focus:ring-4 focus:ring-orange-500/40"
-                onClick={() => navigate(`/stores_list/${selectedCity.id}`)}
+                onClick={() => navigate(`/stores_list/${selectedCity.id_city}`)}
             >
                 Buscar
             </button>
