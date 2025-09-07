@@ -49,67 +49,71 @@ export default function BackgroundHeader() {
           backgroundImage: `url(${store?.cover_url || "/fallback-cover.jpg"})`,
         }}
       />
-      <div className="store-header-content">
-        <img
-          className="store-logo"
-          src={store?.logo_url || "/logo-placeholder.png"}
-          alt={store?.name || "Loja"}
-        />
-        <div className="store-title">
-          <h1>{store?.name || "Loja"}</h1>
-          <div className="store-meta">
-            {store?.rating ? <span className="badge">⭐ {store.rating}</span> : null}
-            {store?.city ? <span className="muted">• {store.city}</span> : null}
-            {typeof store?.products_count === "number" ? (
-              <span className="muted">• {store.products_count} itens</span>
-            ) : null}
-          </div>
-        </div>
-      </div>
-
-      <div className="store-toolbar">
-        <div className="toolbar-row">
-          {/* Botão de voltar para a Home (Hero/SerachStore) */}
-          <Link to="/" className="back-btn" aria-label="Voltar ao início">
-            ← Início
-          </Link>
-
-          {/* Evita submit/reload da página */}
-          <form onSubmit={(e) => e.preventDefault()} style={{ width: "100%" }}>
-            <input
-              className="search-input"
-              placeholder="Buscar no cardápio"
-              value={search}
-              autoFocus
-              onChange={(e) => setSearch(e.target.value)}
+      <div className="store-header-content w-full flex justify-center items-end">
+        <div className="flex w-full sm:w-8/12 mx-auto px-4 items-end">
+            <img
+            className="store-logo"
+            src={store?.logo_url || "/logo-placeholder.png"}
+            alt={store?.name || "Loja"}
             />
-          </form>
+            <div className="store-title ml-4">
+                <h1>{store?.name || "Loja"}</h1>
+                <div className="store-meta">
+                    {store?.rating ? <span className="badge">⭐ {store.rating}</span> : null}
+                    {store?.city ? <span className="muted">• {store.city}</span> : null}
+                    {typeof store?.products_count === "number" ? (
+                    <span className="muted">• {store.products_count} itens</span>
+                    ) : null}
+                </div>
+            </div>
         </div>
-
-        <div className="cat-tabs">
-          <button
-            className={`cat-tab ${!category ? "active" : ""}`}
-            onClick={() => setCategory("")}
-          >
-            Tudo
-          </button>
-          {store?.categories?.map((c) => (
-            <button
-              key={c}
-              className={`cat-tab ${category === c ? "active" : ""}`}
-              onClick={() => setCategory(c)}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-
-        {(search || category) && (
-          <button className="clear-btn" onClick={onClearFilters}>
-            Limpar filtros
-          </button>
-        )}
       </div>
+
+    <div className="w-full flex justify-center">
+        <div className="store-toolbar w-full sm:w-8/12 mx-auto px-4">
+            <div className="toolbar-row">
+            {/* Botão de voltar para a Home (Hero/SerachStore) */}
+            <Link to="/" className="back-btn" aria-label="Voltar ao início">
+                ← Início
+            </Link>
+
+            {/* Evita submit/reload da página */}
+            <form onSubmit={(e) => e.preventDefault()} style={{ width: "100%" }}>
+                <input
+                className="search-input"
+                placeholder="Buscar no cardápio"
+                value={search}
+                autoFocus
+                onChange={(e) => setSearch(e.target.value)}
+                />
+            </form>
+            </div>
+
+            <div className="cat-tabs">
+            <button
+                className={`cat-tab ${!category ? "active" : ""}`}
+                onClick={() => setCategory("")}
+            >
+                Tudo
+            </button>
+            {store?.categories?.map((c) => (
+                <button
+                key={c}
+                className={`cat-tab ${category === c ? "active" : ""}`}
+                onClick={() => setCategory(c)}
+                >
+                {c}
+                </button>
+            ))}
+            </div>
+
+            {(search || category) && (
+            <button className="clear-btn" onClick={onClearFilters}>
+                Limpar filtros
+            </button>
+            )}
+        </div>
+        </div>
     </div>
   );
 
