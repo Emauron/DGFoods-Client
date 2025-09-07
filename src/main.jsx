@@ -3,32 +3,35 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import SerachStore from './pages/SerachStore.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Store from './pages/Store.jsx'
 import StoresList from './pages/StoresList.jsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+// NOVO: página de perfil (a que começa no BackgroundHeader.jsx)
+import BackgroundHeader from './components/store/header/BackgroundHeader.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
-      {
-        path: '/',
-        element: <SerachStore />
-      },
-      {
-        path: '/store/:id',
-        element: <Store />
-      },
-      {
-        path: '/stores_list/:id_city',
-        element: <StoresList />
-      }
-    ]
-  }
+      // usar "index" no filho raiz em vez de path:'/'
+      { index: true, element: <SerachStore /> },
+
+      // Rota nova (sugerida): /lojas/:storeId
+      { path: 'lojas/:storeId', element: <BackgroundHeader /> },
+
+      // Compatibilidade com a antiga: /store/:storeId
+      // (aponta para a MESMA página de perfil)
+      { path: 'store/:storeId', element: <BackgroundHeader /> },
+
+      // Já existente
+      { path: 'stores_list/:id_city', element: <StoresList /> },
+    ],
+  },
 ])
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 )
