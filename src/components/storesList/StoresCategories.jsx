@@ -1,32 +1,44 @@
-import React, { useState } from 'react';
+// Se for Next.js (app router), deixe isto no topo do arquivo:
+// 'use client';
+
+import React, { useState, useEffect } from 'react';
 import CategoryCard from './CategoryCard';
+import api from '../../services/api/api';
 
 export default function StoresCategories() {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [categories, setCategories] = useState([]);
+    const [error, setError] = useState(null);
 
-    useEffect(async () => {
-        const response = await api.get(`/api/store/categories`);
-        setCategories(response.data);
+    useEffect(() => {
+        let active = true;
+        const load = async () => {
+        try {
+            const { data } = await api.get('/api/store/categories');
+            console.log('resposta categorias:', data);
+            if (active) setCategories(data);
+        } catch (err) {
+            console.error('Falha ao buscar categorias', err);
+            if (active) setError('Não foi possível carregar as categorias.');
+        }
+        };
+
+        load();
+        return () => { active = false; };
     }, []);
 
-    if (categories.length === 0) {
-        return <div>Carregando...</div>
-    }
-    
+    if (error) return <div>{error}</div>;
+    if (categories.length === 0) return <div>Carregando...</div>;
+
     return (
-        <section aria-labelledby="titulo-categorias" className="mb-8 md:mb-10">
-            <div className="mb-3 flex items-center justify-between">
-                <h2 id="titulo-categorias" className="text-lg md:text-xl font-semibold">Categorias</h2>
-                <button className="text-sm text-gray-700 hover:underline">Ver todas</button>
-            </div>
-            <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4">
+        <section aria-labelledby="titulo-categorias pb-2" className="mb-8 md:mb-10">
+            <ul className="grid overflow-x-auto grid-flow-col">
                 {categories.map((c) => (
-                    <CategoryCard
-                        key={c}
-                        name={c}
-                        selected={selectedCategory === c}
-                    />
+                <CategoryCard
+                    key={c.id ?? c}
+                    name={c.name ?? c}
+                    selected={selectedCategory === (c.id ?? c)}
+                />
                 ))}
             </ul>
         </section>
