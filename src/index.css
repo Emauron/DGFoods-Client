@@ -95,3 +95,24 @@ html {
 .card-skeleton { height: 140px; }
 @keyframes shimmer { 0% { background-position: 100% 0 } 100% { background-position: 0 0 } }
 
+.toolbar-row {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  
+.back-btn {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #374151;
+    background: #fff;
+}
+.back-btn:hover {
+    border-color: #f97316;
+    color: #f97316;
+}
