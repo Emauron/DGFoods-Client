@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .default-orange-text {
+      @apply text-orange-600;
+  }
+  .default-orange-button {
+    @apply px-5 py-3  rounded-full transition-all duration-300 bg-orange-600 text-white font-semibold hover:brightness-95 focus:outline-none focus:ring-4 focus:ring-orange-500/40;
+  }
+}
+
 html {
     scroll-behavior: smooth; 
 }
