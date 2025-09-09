@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // NOVO: página de perfil (a que começa no BackgroundHeader.jsx)
 import BackgroundHeader from './components/store/header/BackgroundHeader.jsx'
+import { CartContextProvider } from './context/CartContext.jsx'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CartContextProvider>
+      <RouterProvider router={router} />
+    </CartContextProvider>
   </StrictMode>
 )

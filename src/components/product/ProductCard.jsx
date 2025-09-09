@@ -1,31 +1,33 @@
 import React, { useState } from "react";
+import Modal from "../orderModal/Modal.jsx";
+import { createPortal } from "react-dom";
 
 export default function ProductCard({ product }) {
   const [openDesc, setOpenDesc] = useState(false);
+  const [openOrder, setOpenOrder] = useState(false);
+
   const price = Number(product?.price ?? 0);
 
   return (
     <>
-      <div className="product-card">
+      <div
+        className="product-card cursor-pointer"
+        onClick={() => setOpenOrder(true)}   // abre
+      >
         <div className="product-info">
           <h3 className="product-name">{product?.name}</h3>
 
           {product?.description && (
             <div className="relative">
-              {/* Trecho com clamp (não cresce o card) */}
               <p className="product-desc clamp-4 pr-10">
                 {product.description}
               </p>
-
-              {/* Fade no final para dar sensação de “continua” */}
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white to-transparent"></div>
-
-              {/* Botão “...” para abrir a descrição completa */}
               <button
                 type="button"
                 aria-label="Ler descrição completa"
                 className="absolute bottom-1 right-1 z-10 bg-white/90 hover:bg-white border rounded-full w-8 h-8 flex items-center justify-center text-xl leading-none"
-                onClick={() => setOpenDesc(true)}
+                onClick={(e) => { e.stopPropagation(); setOpenDesc(true); }}
                 title="Ver descrição completa"
               >
                 …
@@ -46,7 +48,6 @@ export default function ProductCard({ product }) {
         />
       </div>
 
-      {/* Modal com a descrição completa (não altera layout do card) */}
       {openDesc && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
@@ -66,10 +67,14 @@ export default function ProductCard({ product }) {
                 ×
               </button>
             </div>
-
             <p className="whitespace-pre-line">{product?.description}</p>
           </div>
         </div>
+      )}
+      
+      {openOrder && createPortal(
+        <Modal id_product={product.id} onClose={() => setOpenOrder(false)} />,
+        document.body
       )}
     </>
   );
