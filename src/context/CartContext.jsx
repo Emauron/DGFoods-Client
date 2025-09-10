@@ -47,7 +47,7 @@ export const CartContextProvider = ({ children }) => {
     };
 
     const removeFromCart = (product) => {
-        setCart((prev) => prev.filter((item) => item.id !== product.id));
+        setCart((prev) => prev.filter((item) => item.lineId !== product.lineId));
     };
 
     const clearCart = () => setCart([]);
