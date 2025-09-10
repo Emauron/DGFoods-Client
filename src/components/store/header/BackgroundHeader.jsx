@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import ProductsList from "../../product/ProductsList.jsx";
-
+import ProductsList from "../../product/ProductsList";
+import FloatingCartButton from "../../store/FloatingCartButton";
+import { CartContext } from "../../../context/CartContext";
 // Helper de API (pode extrair para src/services/api.js)
 const BASE = import.meta.env.VITE_API_BASE_URL || "";
 const api = async (path) => {
@@ -18,7 +19,7 @@ export default function BackgroundHeader() {
   // cobre /lojas/:storeId e /store/:id
   const { storeId, id } = useParams();
   const effectiveId = storeId || id;
-
+  const { cart } = useContext(CartContext);
   const [store, setStore] = useState(null);
   const [loadingStore, setLoadingStore] = useState(true);
   const [errorStore, setErrorStore] = useState(null);
@@ -141,6 +142,12 @@ export default function BackgroundHeader() {
         search={search}
         category={category}
         onClearFilters={onClearFilters}
+      />
+      <FloatingCartButton
+        count={22}
+        onClick={() => {/* abrir modal/carrinho */}}
+        title="Ver carrinho"
+        store_id={effectiveId}
       />
     </div>
   );

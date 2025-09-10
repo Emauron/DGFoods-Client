@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 export default function StoreCard({ store }) {
+    const navigate = useNavigate();
     // Util: "12:34[:56]" -> Date com a data de hoje (horário local)
     const parseTimeToToday = (timeStr) => {
         if (!timeStr) return null;
@@ -38,7 +40,7 @@ export default function StoreCard({ store }) {
     const deliveryTime = Number(store?.delivery_time ?? 0);
 
     return (
-        <li className="loja cursor-pointer list-none">
+        <li className="loja cursor-pointer list-none" onClick={() => navigate(`/lojas/${store.id}`)}>
             <a
                 href={store?.href || "#"}
                 className={`group flex items-stretch gap-3 rounded-2xl border border-gray-200/80 bg-white p-3 shadow-sm hover:shadow-md focus-visible:ring-2 focus-visible:ring-gray-900/20 ${
