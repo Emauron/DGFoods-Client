@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // NOVO: página de perfil (a que começa no BackgroundHeader.jsx)
 import BackgroundHeader from './components/store/header/BackgroundHeader.jsx'
 import { CartContextProvider } from './context/CartContext.jsx'
+import Checkout from './pages/Checkout.jsx'
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,8 @@ const router = createBrowserRouter([
 
       // Já existente
       { path: 'stores_list/:id_city', element: <StoresList /> },
+      
+      { path: 'checkout/:store_id', element: <Checkout /> },
     ],
   },
 ])
