@@ -42,7 +42,7 @@ export default function ProductCard({ product }) {
 
         <img
           className="product-img"
-          src={product?.image_url || "/product-placeholder.jpg"}
+          src={product?.image || "/product-placeholder.jpg"}
           alt={product?.name || "Produto"}
           loading="lazy"
         />
