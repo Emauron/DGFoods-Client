@@ -40,21 +40,20 @@ export const CartContextProvider = ({ children }) => {
         return () => window.removeEventListener("storage", onStorage);
     }, []);
 
-    const addToCart = (product) => {
-        setCart((prev) => [...prev, product]);
-        console.log(cart);
+    function addToCart(product) {
+    setCart(prev => [...prev, { ...product, _uid: crypto.randomUUID() }]);
+    }
 
-    };
+    function removeFromCart(item) {
+        setCart(prev => prev.filter(it => it._uid !== item._uid));
+    }
 
-    const removeFromCart = (product) => {
-        setCart((prev) => prev.filter((item) => item.lineId !== product.lineId));
-    };
 
     const clearCart = () => setCart([]);
 
     return (
         <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
-        {children}
+            {children}
         </CartContext.Provider>
     );
 };
