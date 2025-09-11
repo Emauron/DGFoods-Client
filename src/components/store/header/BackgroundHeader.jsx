@@ -43,80 +43,107 @@ export default function BackgroundHeader() {
   };
 
   const Header = () => (
-    <div className="store-header">
-      <div
-        className="store-cover"
-        style={{
-          backgroundImage: `url(${store?.cover_url || "/fallback-cover.jpg"})`,
-        }}
-      />
-      <div className="store-header-content w-full flex justify-center items-end">
-        <div className="flex w-full sm:w-8/12 mx-auto px-4 items-end">
-            <img
-            className="store-logo"
-            src={store?.logo_url || "/logo-placeholder.png"}
-            alt={store?.name || "Loja"}
-            />
-            <div className="store-title ml-4">
-                <h1>{store?.name || "Loja"}</h1>
-                <div className="store-meta">
-                    {store?.rating ? <span className="badge">⭐ {store.rating}</span> : null}
-                    {store?.city ? <span className="muted">• {store.city}</span> : null}
-                    {typeof store?.products_count === "number" ? (
-                    <span className="muted">• {store.products_count} itens</span>
-                    ) : null}
-                </div>
-            </div>
-        </div>
-      </div>
+	<div
+	  className="store-header"
+	  style={{
+		backgroundImage: `url("/uploads/emautanBackground.png")`,
+		backgroundSize: "cover",
+		backgroundPosition: "center",
+	  }}
+	>
+		<div className="store-cover"
+			style={{
+			backgroundImage: `url(${store?.cover_url || "/fallback-cover.jpg"})`,
+			}}
+		/>
+			<div className="store-header-content relative w-full flex justify-center items-end text-white">
+				<div className="relative flex w-full sm:w-8/12 mx-auto px-4 items-end pb-6 
+								bg-gradient-to-r from-amber-900/30 via-black/35 to-transparent 
+								backdrop-blur-[2px] shadow-md ring-1 ring-white/5 rounded-xl"> {/* A idéia é permitir uma nova imagem de background para esta div- caso n tiver mantem essa estilização*/}
 
-    <div className="w-full flex justify-center">
-        <div className="store-toolbar w-full sm:w-8/12 mx-auto px-4">
-            <div className="toolbar-row">
-            {/* Botão de voltar para a Home (Hero/SerachStore) */}
-            <Link to="/" className="back-btn" aria-label="Voltar ao início">
-                ← Início
-            </Link>
+					<img
+					className="store-logo w-20 h-20 rounded-full shadow-lg border-2 border-white/20 object-cover"
+					src={store?.logo_url || "/logo-placeholder.png"}
+					alt={store?.name || "Loja"}
+					/>
 
-            {/* Evita submit/reload da página */}
-            <form onSubmit={(e) => e.preventDefault()} style={{ width: "100%" }}>
-                <input
-                className="search-input"
-                placeholder="Buscar no cardápio"
-                value={search}
-                autoFocus
-                onChange={(e) => setSearch(e.target.value)}
-                />
-            </form>
-            </div>
+					{/* Bloco do título */}
+					<div className="store-title ml-4 px-5 py-3">
+					<h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white drop-shadow-md">
+						{store?.name || "Loja"}
+					</h1>
 
-            <div className="cat-tabs">
-            <button
-                className={`cat-tab ${!category ? "active" : ""}`}
-                onClick={() => setCategory("")}
-            >
-                Tudo
-            </button>
-            {store?.categories?.map((c) => (
-                <button
-                key={c}
-                className={`cat-tab ${category === c ? "active" : ""}`}
-                onClick={() => setCategory(c)}
-                >
-                {c}
-                </button>
-            ))}
-            </div>
+					<div className="store-meta flex flex-wrap gap-3 mt-2 text-sm text-white/90">
+						{store?.rating ? (
+						<span className="px-2 py-0.5 bg-yellow-400 text-black font-semibold rounded-full shadow-sm">
+							⭐ {store.rating}
+						</span>
+						) : null}
+						{store?.city ? (
+						<span className="text-white/80">• {store.city}</span>
+						) : null}
+						{typeof store?.products_count === "number" ? (
+						<span className="text-white/80">• {store.products_count} itens</span>
+						) : null}
+					</div>
+					</div>
+				</div>
+			</div>
+	
+			<div className="w-full flex justify-center">
+				<div
+					className="store-toolbar w-full sm:w-8/12 mx-auto px-4"
+					style={{
+					backgroundColor: "rgba(255, 255, 255, 0.95)", // fundo branco semi-transparente
+					padding: "1.5rem", // aumenta altura (pode ajustar)
+					marginTop: "-2rem", // sobrepõe e cola no background
+					borderRadius: "8px", // opcional: arredondar bordas
+					}}
+				>
+					<div className="toolbar-row">
+					<Link to="/" className="back-btn" aria-label="Voltar ao início">
+						← Início
+					</Link>
 
-            {(search || category) && (
-            <button className="clear-btn" onClick={onClearFilters}>
-                Limpar filtros
-            </button>
-            )}
-        </div>
-        </div>
-    </div>
+					<form onSubmit={(e) => e.preventDefault()} style={{ width: "100%" }}>
+						<input
+						className="search-input"
+						placeholder="Buscar no cardápio"
+						value={search}
+						autoFocus
+						onChange={(e) => setSearch(e.target.value)}
+						/>
+					</form>
+					</div>
+
+					<div className="cat-tabs">
+					<button
+						className={`cat-tab ${!category ? "active" : ""}`}
+						onClick={() => setCategory("")}
+					>
+						Tudo
+					</button>
+					{store?.categories?.map((c) => (
+						<button
+						key={c}
+						className={`cat-tab ${category === c ? "active" : ""}`}
+						onClick={() => setCategory(c)}
+						>
+						{c}
+						</button>
+					))}
+					</div>
+
+					{(search || category) && (
+					<button className="clear-btn" onClick={onClearFilters}>
+						Limpar filtros
+					</button>
+					)}
+				</div>
+			</div>
+	</div>
   );
+  
 
   if (!effectiveId) {
     return (
