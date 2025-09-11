@@ -56,22 +56,36 @@ export default function BackgroundHeader() {
 			backgroundImage: `url(${store?.cover_url || "/fallback-cover.jpg"})`,
 			}}
 		/>
-			<div className="store-header-content w-full flex justify-center items-end">
-				<div className="flex w-full sm:w-8/12 mx-auto px-4 items-end">
+			<div className="store-header-content relative w-full flex justify-center items-end text-white">
+				<div className="relative flex w-full sm:w-8/12 mx-auto px-4 items-end pb-6 
+								bg-gradient-to-r from-amber-900/30 via-black/35 to-transparent 
+								backdrop-blur-[2px] shadow-md ring-1 ring-white/5 rounded-xl"> {/* A idéia é permitir uma nova imagem de background para esta div- caso n tiver mantem essa estilização*/}
+
 					<img
-						className="store-logo"
-						src={store?.logo_url || "/logo-placeholder.png"}
-						alt={store?.name || "Loja"}
+					className="store-logo w-20 h-20 rounded-full shadow-lg border-2 border-white/20 object-cover"
+					src={store?.logo_url || "/logo-placeholder.png"}
+					alt={store?.name || "Loja"}
 					/>
-					<div className="store-title ml-4">
-						<h1>{store?.name || "Loja"}</h1>
-						<div className="store-meta">
-							{store?.rating ? <span className="badge">⭐ {store.rating}</span> : null}
-							{store?.city ? <span className="muted">• {store.city}</span> : null}
-							{typeof store?.products_count === "number" ? (
-								<span className="muted">• {store.products_count} itens</span>
-							) : null}
-						</div>
+
+					{/* Bloco do título */}
+					<div className="store-title ml-4 px-5 py-3">
+					<h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white drop-shadow-md">
+						{store?.name || "Loja"}
+					</h1>
+
+					<div className="store-meta flex flex-wrap gap-3 mt-2 text-sm text-white/90">
+						{store?.rating ? (
+						<span className="px-2 py-0.5 bg-yellow-400 text-black font-semibold rounded-full shadow-sm">
+							⭐ {store.rating}
+						</span>
+						) : null}
+						{store?.city ? (
+						<span className="text-white/80">• {store.city}</span>
+						) : null}
+						{typeof store?.products_count === "number" ? (
+						<span className="text-white/80">• {store.products_count} itens</span>
+						) : null}
+					</div>
 					</div>
 				</div>
 			</div>
